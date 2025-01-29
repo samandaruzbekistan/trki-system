@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,16 @@ Route::view('/login', 'user.login')->name('user.login');
 
 Route::prefix('admin')->group(function () {
     Route::post('/auth', [AdminController::class, 'auth'])->name('admin.auth');
+    Route::middleware(['admin_auth'])->group(function () {
+        Route::get('home', [AdminController::class, 'home'])->name('admin.home');
+        Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
+        Route::get('profile', [AdminController::class, 'profile'])->name('admin.profile');
+        Route::post('update',[AdminController::class,'update'])->name('admin.update');
+
+//        Exams control
+        Route::post('exam',[ExamController::class,'create'])->name('admin.exam.create');
+        Route::get('exam/{id}',[ExamController::class,'exam_edit'])->name('admin.exam.edit');
+        Route::post('exam/{id}',[ExamController::class,'exam_update'])->name('admin.exam.update');
+        Route::get('exam/delete/{id}',[ExamController::class,'exam_delete'])->name('admin.exam.delete');
+    });
 });

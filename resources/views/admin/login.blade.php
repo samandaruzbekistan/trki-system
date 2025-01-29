@@ -25,10 +25,7 @@
                 <div class="d-table-cell align-middle">
 
                     <div class="text-center mt-4">
-                        <h1 class="h2">Admin</h1>
-                        <p class="lead">
-                            Ideal Study xususiy maktabi
-                        </p>
+                        <h1 class="h2">TRKI system</h1>
                     </div>
 
                     <div class="card">

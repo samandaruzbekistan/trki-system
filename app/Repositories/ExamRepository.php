@@ -11,6 +11,11 @@ class ExamRepository
         return Exam::with('sections')->find($id);
     }
 
+    public function getExams()
+    {
+        return Exam::with('sections')->get();
+    }
+
     public function create($data)
     {
         return Exam::create($data);
