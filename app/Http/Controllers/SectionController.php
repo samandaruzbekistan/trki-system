@@ -19,6 +19,7 @@ class SectionController extends Controller
     public function index($id)
     {
         $section = $this->sectionRepository->getById($id);
+//        return $section;
         return view('admin.section', ['section' => $section]);
     }
 

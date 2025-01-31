@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
+            $table->text('question');
             $table->unsignedBigInteger('part_id');
             $table->foreign('part_id')->references('id')->on('parts')->onDelete('cascade');
             $table->string('type');
-            $table->string('file_url');
-            $table->integer('duration');
-            $table->integer('score');
+            $table->string('file_url')->nullable();
+            $table->integer('duration')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

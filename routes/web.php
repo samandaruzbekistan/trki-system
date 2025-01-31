@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\PartController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,5 +42,9 @@ Route::prefix('admin')->group(function () {
 //        Parts control
         Route::get('part/{id}',[PartController::class,'index'])->name('admin.part');
         Route::post('part',[PartController::class,'create'])->name('admin.part.create');
+
+//        Questions control
+        Route::get('question/{id}',[QuestionController::class,'index'])->name('admin.question');
+        Route::post('question',[QuestionController::class,'create'])->name('admin.question.create');
     });
 });

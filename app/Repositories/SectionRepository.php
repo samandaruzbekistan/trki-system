@@ -8,7 +8,7 @@ class SectionRepository
 {
     public function getById($id)
     {
-        return Section::with('parts')->find($id);
+        return Section::with('parts.questions.answers')->find($id);
     }
 
     public function create($data)

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
 @endpush
 
-@section('olympic_exam_days')
+@section('home')
     active
 @endsection
 @section('section')
@@ -123,6 +123,124 @@
         </div>
     </div>
 
+    <main class="content forma" style="padding-bottom: 0; display: none">
+        <div class="container-fluid p-0">
+            <div class="col-md-8 col-xl-9">
+                <div class="">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Yangi savol qo'shish</h5>
+                        </div>
+                        <div class="card-body h-100">
+                            <form action="{{ route('admin.question.create') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Savol <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="question"></textarea>
+                                </div>
+                                <input type="hidden" id="section_id" name="part_id" value="">
+                                <input type="hidden" name="type" value="quiz">
+{{--                                <div class="mb-3">--}}
+{{--                                    <label class="form-label">Rasm </label>--}}
+{{--                                    <input class="form-control" name="photo" type="file" accept="image/*">--}}
+{{--                                </div>--}}
+                                <div class="mb-3">
+                                    <label class="form-label">A javob <span
+                                            class="text-danger">tog'ri javob *</span></label>
+                                    <textarea class="form-control" name="a_answer"></textarea>
+                                </div>
+                                <hr>
+                                <div class="mb-3">
+                                    <label class="form-label">B javob <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="b_answer"></textarea>
+                                </div>
+                                <hr>
+                                <div class="mb-3">
+                                    <label class="form-label">C javob <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="c_answer"></textarea>
+                                </div>
+                                <hr>
+                                <div class="mb-3">
+                                    <label class="form-label">D javob <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="d_answer"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Ball <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="score" id="summa">
+                                </div>
+
+                                <div class=" text-end">
+                                    <button type="button" class="btn btn-danger cancel">Bekor qilish</button>
+                                    <button type="submit" class="btn btn-success">Qo'shish</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main class="content writing" style="padding-bottom: 0; display: none">
+        <div class="container-fluid p-0">
+            <div class="col-md-8 col-xl-9">
+                <div class="">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Yangi yozma qo'shish</h5>
+                        </div>
+                        <div class="card-body h-100">
+                            <form action="{{ route('admin.question.create') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Savol <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="question"></textarea>
+                                </div>
+                                <input type="hidden" id="writing_part_id" name="part_id" value="">
+                                <input type="hidden" name="type" value="writing">
+
+                                <div class=" text-end">
+                                    <button type="button" class="btn btn-danger cancel-writing">Bekor qilish</button>
+                                    <button type="submit" class="btn btn-success">Qo'shish</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main class="content speaking" style="padding-bottom: 0; display: none">
+        <div class="container-fluid p-0">
+            <div class="col-md-8 col-xl-9">
+                <div class="">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Yangi speaking qo'shish</h5>
+                        </div>
+                        <div class="card-body h-100">
+                            <form action="{{ route('admin.question.create') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Savol <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="question"></textarea>
+                                </div>
+                                <input type="hidden" id="speaking_part_id" name="part_id" value="">
+                                <input type="hidden" name="type" value="speaking">
+
+                                <div class=" text-end">
+                                    <button type="button" class="btn btn-danger cancel-speaking">Bekor qilish</button>
+                                    <button type="submit" class="btn btn-success">Qo'shish</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
     @foreach($section->parts as $part)
         <main class="content quizzes">
             <div class="container-fluid p-0">
@@ -131,21 +249,105 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6">
-                                    <h5 class="card-title mb-0"><span class="text-danger">{{ $section->name }}</span>
+                                    <h5 class="card-title mb-0"><span class="text-danger">{{ $part['name'] }}</span>
                                         bo'limi savollari
                                     </h5>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <form action="" method="post"
-                                          class="d-inline">
-                                        @csrf
-                                        <input type="hidden" name="section_id" value="{{ $section->id }}">
-                                        <button type="submit" class="btn btn-danger">Bo'limni o'chirish</button>
-                                    </form>
-                                    <button class="btn btn-info add" id="{{ $section->id }}">+ Savol qo'shish</button>
+                                    <b>Savol qo'shish:</b>
+{{--                                    <form action="" method="post"--}}
+{{--                                          class="d-inline">--}}
+{{--                                        @csrf--}}
+{{--                                        <input type="hidden" name="section_id" value="{{ $section->id }}">--}}
+{{--                                        <button type="submit" class="btn btn-danger">Bo'limni o'chirish</button>--}}
+{{--                                    </form>--}}
+                                    <button class="btn btn-info add" id="{{ $section->id }}">+ Test</button>
+{{--                                    <button class="btn btn-info add-mos" id="{{ $section->id }}">+ Moslashtirish</button>--}}
+                                    <button class="btn btn-info add-writing" id="{{ $section->id }}">+ Yozma</button>
+                                    <button class="btn btn-info add-speaking" id="{{ $section->id }}">+ Speaking</button>
                                 </div>
                             </div>
                         </div>
+                        @if($part['type'] == 'quiz')
+                            <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Savol</th>
+                                <th>Togri javob</th>
+                                <th>B javob</th>
+                                <th>C javob</th>
+                                <th>D javob</th>
+                                <th>Ball</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody id="old-data">
+                            @foreach($part->questions as $id => $quiz)
+                                <tr>
+                                    <td>{{ $id+1 }}</td>
+                                    <td>
+                                        {{substr($quiz->question, 0, 30)}}...
+                                    </td>
+                                    <td class="text-danger">{{ $quiz->answers[0]->answer }}...</td>
+                                    <td>{{ substr($quiz->answers[1]->answer, 0, 30) }}...</td>
+                                    <td>{{ substr($quiz->answers[2]->answer, 0, 30) }}...</td>
+                                    <td>{{ substr($quiz->answers[3]->answer, 0, 30) }}...</td>
+                                    <td>{{ $quiz->score }}</td>
+                                    <td>
+                                        <a href="">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        @elseif($part['type'] == 'writing')
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Savol</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody id="old-data">
+                                @foreach($part->questions as $id => $quiz)
+                                    <tr>
+                                        <td>{{ $id+1 }}</td>
+                                        <td>
+                                            {{ $quiz->question }}
+                                        </td>
+                                        <td>
+                                            <a href="">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @elseif($part['type'] == 'speaking')
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Savol</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody id="old-data">
+                                @foreach($part->questions as $id => $quiz)
+                                    <tr>
+                                        <td>{{ $id+1 }}</td>
+                                        <td>
+                                            {{ $quiz->question }}
+                                        </td>
+                                        <td>
+                                            <a href="">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
                 </div>
 
@@ -207,94 +409,33 @@
             $('.quizzes').show();
         });
 
-        @if($errors->any())
-        const notyf = new Notyf();
 
-        @foreach ($errors->all() as $error)
-        notyf.error({
-            message: '{{ $error }}',
-            duration: 5000,
-            dismissible: true,
-            position: {
-                x: 'center',
-                y: 'top'
-            },
+        $(".add-writing").on("click", function () {
+            let sectionID = $(this).attr('id');
+            $('#writing_part_id').val(sectionID);
+            $('.writing').show();
+            $('.quizzes').hide();
         });
-        @endforeach
 
-        @endif
-
-
-        @if(session('success') == 1)
-        const notyf = new Notyf();
-
-        notyf.success({
-            message: 'Imtixon kuni qo\'shildi!',
-            duration: 5000,
-            dismissible: true,
-            position: {
-                x: 'right',
-                y: 'bottom'
-            },
+        $(".cancel-writing").on("click", function () {
+            event.stopPropagation();
+            $('.writing').hide();
+            $('.quizzes').show();
         });
-        @endif
 
-        @if(session('new-section') == 1)
-        const notyf = new Notyf();
-
-        notyf.success({
-            message: 'Savollar bo\'limi qo\'shildi!',
-            duration: 5000,
-            dismissible: true,
-            position: {
-                x: 'right',
-                y: 'bottom'
-            },
+        $(".add-speaking").on("click", function () {
+            let sectionID = $(this).attr('id');
+            $('#speaking_part_id').val(sectionID);
+            $('.speaking').show();
+            $('.quizzes').hide();
         });
-        @endif
 
-        @if(session('section_delete') == 1)
-        const notyf = new Notyf();
-
-        notyf.success({
-            message: 'Savollar bo\'limi o\'chirildi!',
-            duration: 5000,
-            dismissible: true,
-            position: {
-                x: 'right',
-                y: 'bottom'
-            },
+        $(".cancel-speaking").on("click", function () {
+            event.stopPropagation();
+            $('.speaking').hide();
+            $('.quizzes').show();
         });
-        @endif
 
-        @if(session('quiz_save') == 1)
-        const notyf = new Notyf();
-
-        notyf.success({
-            message: 'Savol  qo\'shildi!',
-            duration: 5000,
-            dismissible: true,
-            position: {
-                x: 'right',
-                y: 'bottom'
-            },
-        });
-        @endif
-
-
-        @if(session('error') == 1)
-        const notyf = new Notyf();
-
-        notyf.error({
-            message: 'Xatolik! Savol q\'shilmadi',
-            duration: 5000,
-            dismissible: true,
-            position: {
-                x: 'right',
-                y: 'bottom'
-            },
-        });
-        @endif
 
     </script>
 @endsection
