@@ -53,7 +53,7 @@
                         <div class="row">
                             @foreach($exams as $exam)
                                 <div class="col-xl-3 col-md-3">
-                                    <a href="">
+                                    <a href="{{ route('admin.exam', ['id' => $exam->id]) }}">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
@@ -68,10 +68,15 @@
                                                     </div>
                                                 </div>
                                                 <h1 class="mt-1 mb-3">{{ $exam->name }}</h1>
-                                                <div class="mb-0">
-                                                    <span class="text-muted">Sana:</span>
-                                                    <span class="text-danger"><i class="mdi mdi-arrow-bottom-right"></i>{{ $exam->date }}</span>
-                                                </div>
+{{--                                                <div class="mb-0">--}}
+{{--                                                    <span class="text-muted">Sana:</span>--}}
+{{--                                                    <span class="text-danger"><i class="mdi mdi-arrow-bottom-right"></i>{{ $exam->date }}</span>--}}
+{{--                                                </div>--}}
+                                                <ul>
+                                                    @foreach($exam->sections as $section)
+                                                        <li><a href="{{ route('admin.section', ['id' => $section['id']]) }}">{{ $section['name'] }}</a></li>
+                                                    @endforeach
+                                                </ul>
                                             </div>
                                         </div>
                                     </a>

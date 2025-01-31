@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\PartController;
+use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +29,17 @@ Route::prefix('admin')->group(function () {
         Route::post('update',[AdminController::class,'update'])->name('admin.update');
 
 //        Exams control
+        Route::get('exam/{id}',[ExamController::class,'index'])->name('admin.exam');
         Route::post('exam',[ExamController::class,'create'])->name('admin.exam.create');
-        Route::get('exam/{id}',[ExamController::class,'exam_edit'])->name('admin.exam.edit');
         Route::post('exam/{id}',[ExamController::class,'exam_update'])->name('admin.exam.update');
         Route::get('exam/delete/{id}',[ExamController::class,'exam_delete'])->name('admin.exam.delete');
+
+//        Sections control
+        Route::get('section/{id}',[SectionController::class,'index'])->name('admin.section');
+        Route::get('section/{type}', [SectionController::class, 'get_by_type'])->name('admin.section.type');
+
+//        Parts control
+        Route::get('part/{id}',[PartController::class,'index'])->name('admin.part');
+        Route::post('part',[PartController::class,'create'])->name('admin.part.create');
     });
 });

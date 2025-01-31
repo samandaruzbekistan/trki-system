@@ -9,7 +9,7 @@ class Part extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['exam_id', 'name', 'description', 'section_id', 'duration', 'type', 'file_url'];
+    protected $fillable = ['exam_id', 'name', 'description', 'section_id', 'duration', 'type', 'audio', 'video_frame'];
 
     public function questions()
     {
