@@ -15,7 +15,7 @@
                         <div class="row">
                             @foreach($section->parts as $part)
                                 <div class="col-xl-3 col-md-3">
-                                    <a href="{{ route('admin.exam', ['id' => $part['id']]) }}" class="confirm-link">
+                                    <a href="{{ route('user.part.play', ['id' => $part['id']]) }}" class="confirm-link">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">

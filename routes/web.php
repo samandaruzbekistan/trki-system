@@ -26,6 +26,7 @@ Route::prefix('user')->group(function () {
     Route::post('auth', [UserController::class, 'auth'])->name('user.auth');
     Route::middleware(['user_auth'])->group(function () {
         Route::get('home', [UserController::class, 'home'])->name('user.home');
+        Route::get('play-part/{id}', [UserController::class, 'play_part'])->name('user.part.play');
 
     });
 });

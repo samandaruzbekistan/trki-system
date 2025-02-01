@@ -272,7 +272,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if($part['type'] == 'quiz')
+                        @if(($part['type'] == 'quiz') || ($part['type'] == 'listening_video') || ($part['type'] == 'listening_audio'))
                             <table class="table table-striped table-hover">
                             <thead>
                             <tr>
@@ -293,10 +293,22 @@
                                     <td>
                                         {{substr($quiz->question, 0, 30)}}...
                                     </td>
-                                    <td class="text-danger">{{ $quiz->answers[0]->answer }}...</td>
-                                    <td>{{ substr($quiz->answers[1]->answer, 0, 30) }}...</td>
-                                    <td>{{ substr($quiz->answers[2]->answer, 0, 30) }}...</td>
-                                    <td>{{ substr($quiz->answers[3]->answer, 0, 30) }}...</td>
+                                    <td>{{ $quiz->answers[0]->answer }}...</td>
+                                    @if(isset($quiz->answers[1]))
+                                        <td>{{ substr($quiz->answers[1]->answer, 0, 30) }}...</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    @if(isset($quiz->answers[2]))
+                                        <td>{{ substr($quiz->answers[2]->answer, 0, 30) }}...</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    @if(isset($quiz->answers[3]))
+                                        <td>{{ substr($quiz->answers[3]->answer, 0, 30) }}...</td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                     <td>{{ $quiz->score }}</td>
                                     <td>
                                         <a href="">Delete</a>

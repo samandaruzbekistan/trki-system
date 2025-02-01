@@ -8,7 +8,7 @@ class PartRepository
 {
     public function getById($id)
     {
-        return Part::with('questions')->find($id);
+        return Part::with('questions.answers')->find($id);
     }
 
     public function create($data)

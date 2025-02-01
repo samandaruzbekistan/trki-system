@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Repositories\ExamRepository;
 use App\Repositories\ExamResultRepository;
+use App\Repositories\PartRepository;
+use App\Repositories\PartScoreRepository;
 use App\Repositories\SectionRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -16,7 +18,9 @@ class UserController extends Controller
         protected UserRepository $userRepository,
         protected ExamRepository $examRepository,
         protected ExamResultRepository $examResultRepository,
-        protected SectionRepository $sectionRepository
+        protected SectionRepository $sectionRepository,
+        protected PartScoreRepository $partScoreRepository,
+        protected PartRepository $partRepository
     )
     {
     }
@@ -64,5 +68,16 @@ class UserController extends Controller
         $section = $this->sectionRepository->getById($exam->sections->first()->id);
         $exam_result = $this->examResultRepository->getById(session('exam_result_id'));
         return view('user.home', ['exam' => $exam, 'exam_result' => $exam_result, 'section' => $section]);
+    }
+
+    public function play_part($id){
+        $part = $this->partRepository->getById($id);
+        return view('user.parts.quiz', ['part' => $part]);
+//        if($part->type == 'quiz'){
+//            return view('user.parts.quiz', ['part' => $part]);
+//        }
+//        else{
+//            return view('user.playvideo', ['part' => $part]);
+//        }
     }
 }
