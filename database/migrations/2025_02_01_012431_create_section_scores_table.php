@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('section_scores', function (Blueprint $table) {
             $table->id();
             $table->integer('exam_result_id');
-            $table->integer('score');
-            $table->integer('percent');
+            $table->integer('score')->nullable();
+            $table->string('type');
+            $table->integer('percent')->nullable();
             $table->integer('section_id');
             $table->timestamps();
         });

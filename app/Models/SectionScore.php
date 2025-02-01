@@ -14,6 +14,7 @@ class SectionScore extends Model
         'score',
         'percent',
         'section_id',
+        'type'
     ];
 
     public function partScores()

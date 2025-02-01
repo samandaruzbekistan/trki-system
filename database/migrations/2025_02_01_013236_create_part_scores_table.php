@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('percent');
             $table->integer('part_id');
             $table->integer('section_score_id');
+            $table->string('status')->default('checked');
             $table->timestamps();
         });
     }

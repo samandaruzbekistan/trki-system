@@ -14,7 +14,8 @@ class PartScore extends Model
         'part_id',
         'section_score_id',
         'score',
-        'percent'
+        'percent',
+        'status'
     ];
 
     public function part()
