@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('exam_id');
             $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
             $table->integer('duration');
+            $table->integer('max_score');
             $table->string('type');
             $table->string('audio')->nullable();
             $table->text('video_frame')->nullable();

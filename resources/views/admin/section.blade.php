@@ -93,6 +93,10 @@
                                 <input type="number" class="form-control" name="duration">
                             </div>
                             <div class="mb-3">
+                                <label class="form-label">Max ball<span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="max_score">
+                            </div>
+                            <div class="mb-3">
                                 <label for="region" class="form-label">Turi</label> <sup class="text-danger">*</sup>
                                 <select id="region" required="" class="form-select" name="type">
                                     <option disabled="" selected="" hidden>Tanlang</option>

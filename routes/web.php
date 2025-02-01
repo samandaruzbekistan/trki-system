@@ -5,6 +5,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/admin', 'admin.login')->name('admin.login');
 Route::view('/login', 'user.login')->name('user.login');
+
+Route::prefix('user')->group(function () {
+    Route::post('auth', [UserController::class, 'auth'])->name('user.auth');
+    Route::middleware(['user_auth'])->group(function () {
+        Route::get('home', [UserController::class, 'home'])->name('user.home');
+
+    });
+});
 
 Route::prefix('admin')->group(function () {
     Route::post('/auth', [AdminController::class, 'auth'])->name('admin.auth');
@@ -46,5 +55,9 @@ Route::prefix('admin')->group(function () {
 //        Questions control
         Route::get('question/{id}',[QuestionController::class,'index'])->name('admin.question');
         Route::post('question',[QuestionController::class,'create'])->name('admin.question.create');
+
+//        Users control
+        Route::get('users',[AdminController::class,'users'])->name('admin.users');
+        Route::post('users',[AdminController::class,'user_create'])->name('admin.users.create');
     });
 });

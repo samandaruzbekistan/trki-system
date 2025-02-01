@@ -30,6 +30,7 @@ class PartController extends Controller
             'description' => 'required|string',
             'section_id' => 'required|numeric|exists:sections,id',
             'duration' => 'required|numeric',
+            'max_score' => 'required|numeric',
             'type' => 'required|string',
             'video_frame' => 'nullable|string',
             'exam_id' => 'required|numeric|exists:exams,id',

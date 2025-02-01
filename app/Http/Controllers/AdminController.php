@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Repositories\AdminRepository;
 use App\Repositories\ExamRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,7 +13,8 @@ class AdminController extends Controller
 {
     public function __construct(
         protected AdminRepository $adminRepository,
-        protected ExamRepository $examRepository
+        protected ExamRepository $examRepository,
+        protected UserRepository $userRepository
     )
     {
     }
@@ -58,5 +60,26 @@ class AdminController extends Controller
     public function home(){
         $exams = $this->examRepository->getExams();
         return view('admin.home', ['exams' => $exams]);
+    }
+
+    public function users(){
+        $users = $this->userRepository->get_all();
+        return view('admin.users', ['students' => $users]);
+    }
+
+    public function user_create(Request $request){
+        $request->validate([
+            'full_name' => 'required|string',
+            'username' => 'required|string|unique:users,username',
+            'password' => 'required|string',
+        ]);
+
+        $user = $this->userRepository->create([
+            'full_name' => $request->full_name,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return back()->with('successfully', "Foydalanuvchi kiritildi");
     }
 }

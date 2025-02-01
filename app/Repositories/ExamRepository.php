@@ -6,6 +6,11 @@ use App\Models\Exam;
 
 class ExamRepository
 {
+    public function getActiveExam()
+    {
+        return Exam::where('status', 'active')->first();
+    }
+
     public function getById($id)
     {
         return Exam::with('sections')->find($id);

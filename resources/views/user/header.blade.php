@@ -31,24 +31,75 @@
 
                 <li class="sidebar-item @yield('home')">
                     <a class="sidebar-link" href="{{ route('admin.home') }}">
-                        <i class="align-middle" data-feather="slack"></i>
-                        <span class="align-middle">Imtixonlar</span>
+                        <i class="align-middle" data-feather="check-square"></i>
+                        <span class="align-middle">Лексика. Грамматика</span>
                     </a>
                 </li>
 
+                @if($exam_result->reading_score == null)
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="lock"></i>
+                            <span class="align-middle">Чтение</span>
+                        </a>
+                    </li>
+                @else
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="check-square"></i>
+                            <span class="align-middle">Чтение</span>
+                        </a>
+                    </li>
+                @endif
 
+                @if($exam_result->listening_score == null)
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="lock"></i>
+                            <span class="align-middle">Аудирование</span>
+                        </a>
+                    </li>
+                @else
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="check-square"></i>
+                            <span class="align-middle">Аудирование</span>
+                        </a>
+                    </li>
+                @endif
 
+                @if($exam_result->writing_score == null)
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="lock"></i>
+                            <span class="align-middle">Письмо</span>
+                        </a>
+                    </li>
+                @else
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="check-square"></i>
+                            <span class="align-middle">Письмо</span>
+                        </a>
+                    </li>
+                @endif
 
-{{--                <li class="sidebar-header">--}}
-{{--                    Foydalanuvchilar--}}
-{{--                </li>--}}
+                @if($exam_result->speaking_score == null)
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="lock"></i>
+                            <span class="align-middle">Говорение</span>
+                        </a>
+                    </li>
+                @else
+                    <li class="sidebar-item @yield('reading')">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="check-square"></i>
+                            <span class="align-middle">Говорение</span>
+                        </a>
+                    </li>
+                @endif
 
-                <li class="sidebar-item @yield('users')">
-                    <a class="sidebar-link" href="{{ route('admin.users') }}">
-                        <i class="align-middle" data-feather="users"></i>
-                        <span class="align-middle">Foydalanuvchilar</span>
-                    </a>
-                </li>
 
             </ul>
 
@@ -61,14 +112,7 @@
             <a class="sidebar-toggle js-sidebar-toggle">
                 <i class="hamburger align-self-center"></i>
             </a>
-            <form class="d-sm-inline-block">
-                <div class="input-group input-group-navbar">
-                    <input type="text" id="modalSearchInput" class="form-control" placeholder="Search…" aria-label="Search">
-                    <button class="btn" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </button>
-                </div>
-            </form>
+            <h4>Экзамен: {{ session('exam_name') }}</h4>
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align">
 
@@ -85,7 +129,7 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            Admin
+                            {{ session('name') }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="user"></i> Profile</a>
