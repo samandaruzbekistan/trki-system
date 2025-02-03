@@ -25,14 +25,12 @@
 
                                                     <div class="col-auto">
                                                         <div class="stat text-primary">
-                                                            @if($part->type == 'quiz')
-                                                                <i class="align-middle text-success" data-feather="list"></i>
-                                                            @elseif($part->type == 'listening_video')
-                                                                <i class="align-middle text-success" data-feather="play"></i>
-                                                            @elseif($part->type == 'speaking')
-                                                                <i class="align-middle text-success" data-feather="mic"></i>
-                                                            @elseif($part->type == 'writing')
-                                                                <i class="align-middle text-success" data-feather="feather"></i>
+                                                            @if(!empty($exam_result->section_scores)))
+                                                                @foreach($exam_result->section_scores->partScores as $partScore)
+                                                                    @if($partScore->part_id == $part['id'])
+                                                                        <i class="align-middle text-success" data-feather="check"></i>
+                                                                    @endif
+                                                                @endforeach
                                                             @endif
                                                         </div>
                                                     </div>

@@ -51,7 +51,7 @@ class UserController extends Controller
             session()->put('name',$user->full_name);
             session()->put('id',$user->id);
             session()->put('username',$user->username);
-            return redirect()->route('user.home');
+            return redirect()->route('user.section.show', ['id' => $exam->sections->first()->id]);
         }
         else{
             return back()->with('login_error', 1);
@@ -63,11 +63,11 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
 
-    public function home(){
-        $exam = $this->examRepository->getById(session('exam_id'));
-        $section = $this->sectionRepository->getById($exam->sections->first()->id);
+    public function show_section($section_id){
         $exam_result = $this->examResultRepository->getById(session('exam_result_id'));
-        return view('user.home', ['exam' => $exam, 'exam_result' => $exam_result, 'section' => $section]);
+        $section = $this->sectionRepository->getById($section_id);
+//        return $exam_result;
+        return view('user.home', ['exam_result' => $exam_result, 'section' => $section]);
     }
 
     public function play_part($id){

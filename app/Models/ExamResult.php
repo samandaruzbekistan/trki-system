@@ -25,4 +25,9 @@ class ExamResult extends Model
     {
         return $this->belongsTo(Exam::class);
     }
+
+    public function sectionScores()
+    {
+        return $this->hasMany(SectionScore::class, 'exam_result_id', 'id');
+    }
 }

@@ -19,7 +19,7 @@ class SectionScore extends Model
 
     public function partScores()
     {
-        return $this->hasMany(PartScore::class);
+        return $this->hasMany(PartScore::class, 'section_score_id', 'id');
     }
 
     public function examResult()

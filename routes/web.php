@@ -25,7 +25,8 @@ Route::view('/login', 'user.login')->name('user.login');
 Route::prefix('user')->group(function () {
     Route::post('auth', [UserController::class, 'auth'])->name('user.auth');
     Route::middleware(['user_auth'])->group(function () {
-        Route::get('home', [UserController::class, 'home'])->name('user.home');
+        Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
+        Route::get('show-section/{id}', [UserController::class, 'show_section'])->name('user.section.show');
         Route::get('play-part/{id}', [UserController::class, 'play_part'])->name('user.part.play');
 
     });

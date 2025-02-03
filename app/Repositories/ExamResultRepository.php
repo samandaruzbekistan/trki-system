@@ -18,7 +18,7 @@ class ExamResultRepository
 
     public function getById($id)
     {
-        return ExamResult::with('exam', 'user')->find($id);
+        return ExamResult::with('exam', 'sectionScores.partScores', 'user')->find($id);
     }
 
     public function create($data)
