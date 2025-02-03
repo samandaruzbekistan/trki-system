@@ -15,7 +15,11 @@
                         <div class="row">
                             @foreach($section->parts as $part)
                                 <div class="col-xl-3 col-md-3">
+                                @if(in_array($part['id'], $solved_parts_ids))
+                                    <a href="#">
+                                @else
                                     <a href="{{ route('user.part.play', ['id' => $part['id']]) }}" class="confirm-link">
+                                @endif
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
@@ -25,17 +29,14 @@
 
                                                     <div class="col-auto">
                                                         <div class="stat text-primary">
-                                                            @if(!empty($exam_result->section_scores)))
-                                                                @foreach($exam_result->section_scores->partScores as $partScore)
-                                                                    @if($partScore->part_id == $part['id'])
-                                                                        <i class="align-middle text-success" data-feather="check"></i>
-                                                                    @endif
-                                                                @endforeach
+                                                            @if(in_array($part['id'], $solved_parts_ids))
+                                                                <i class="align-middle text-success" data-feather="check"></i>
                                                             @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <h1 class="mt-1 mb-3">{{ $part->name }}</h1>
+                                                <span class="text-danger">завершен</span>
                                             </div>
                                         </div>
                                     </a>

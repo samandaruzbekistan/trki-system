@@ -31,74 +31,38 @@
 
                 <li class="sidebar-item @yield('home')">
                     <a class="sidebar-link" href="{{ route('admin.home') }}">
-                        <i class="align-middle" data-feather="check-square"></i>
+                        <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">Лексика. Грамматика</span>
                     </a>
                 </li>
 
-                @if($exam_result->reading_score == null)
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="lock"></i>
-                            <span class="align-middle">Чтение</span>
-                        </a>
-                    </li>
-                @else
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="check-square"></i>
-                            <span class="align-middle">Чтение</span>
-                        </a>
-                    </li>
-                @endif
+                <li class="sidebar-item @yield('reading')">
+                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                        <i class="align-middle" data-feather="book-open"></i>
+                        <span class="align-middle">Чтение</span>
+                    </a>
+                </li>
 
-                @if($exam_result->listening_score == null)
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="lock"></i>
-                            <span class="align-middle">Аудирование</span>
-                        </a>
-                    </li>
-                @else
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="check-square"></i>
-                            <span class="align-middle">Аудирование</span>
-                        </a>
-                    </li>
-                @endif
+                <li class="sidebar-item @yield('reading')">
+                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                        <i class="align-middle" data-feather="music"></i>
+                        <span class="align-middle">Аудирование</span>
+                    </a>
+                </li>
 
-                @if($exam_result->writing_score == null)
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="lock"></i>
-                            <span class="align-middle">Письмо</span>
-                        </a>
-                    </li>
-                @else
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="check-square"></i>
-                            <span class="align-middle">Письмо</span>
-                        </a>
-                    </li>
-                @endif
+                <li class="sidebar-item @yield('reading')">
+                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                        <i class="align-middle" data-feather="feather"></i>
+                        <span class="align-middle">Письмо</span>
+                    </a>
+                </li>
 
-                @if($exam_result->speaking_score == null)
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="lock"></i>
-                            <span class="align-middle">Говорение</span>
-                        </a>
-                    </li>
-                @else
-                    <li class="sidebar-item @yield('reading')">
-                        <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="check-square"></i>
-                            <span class="align-middle">Говорение</span>
-                        </a>
-                    </li>
-                @endif
+                <li class="sidebar-item @yield('reading')">
+                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                        <i class="align-middle" data-feather="mic"></i>
+                        <span class="align-middle">Говорение</span>
+                    </a>
+                </li>
 
 
             </ul>

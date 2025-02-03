@@ -59,19 +59,20 @@
         @if($part->type == 'listening_video')
             {!! $part->video_frame !!}
         @endif
-        <form action="" method="post" id="submit-form">
+        <form action="{{ route('user.quiz.check') }}" method="post" id="submit-form">
             @csrf
             <input type="hidden" name="quiz_count" value="{{ count($part->questions) }}">
             <input type="hidden" name="part_id" value="{{ $part->id }}">
+            <input type="hidden" name="section_id" value="{{ $part->section_id }}">
             <input type="hidden" name="exam_result_id" value="{{ session('exam_result_id') }}">
             @foreach($part->questions as $id=> $quiz)
                 <div class="small_tests">
                     <section class="small_test">
                         <div>
-                            <h2 class="test_title">{{ $id+1 }}. </b> {{ $quiz['question'] }}</h2>
+                            <h2 class="test_title">{{ $quiz['question'] }}</h2>
                             @foreach ($quiz['answers']->shuffle() as $item)
                                 <label>
-                                    <input type="radio" name="answer{{ $id+1 }}" value="{{ $item['is_correct'] }}">
+                                    <input type="radio" name="answers[{{ $id }}]" value="{{ $item['is_correct'] }}">
                                     <span>{{ $item['answer'] }}</span>
                                 </label>
                             @endforeach

@@ -29,6 +29,8 @@ Route::prefix('user')->group(function () {
         Route::get('show-section/{id}', [UserController::class, 'show_section'])->name('user.section.show');
         Route::get('play-part/{id}', [UserController::class, 'play_part'])->name('user.part.play');
 
+        Route::post('check-quiz', [UserController::class, 'check_quiz'])->name('user.quiz.check');
+
     });
 });
 

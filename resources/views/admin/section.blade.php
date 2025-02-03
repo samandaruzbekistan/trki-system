@@ -142,7 +142,7 @@
                                     <label class="form-label">Savol <span class="text-danger">*</span></label>
                                     <textarea class="form-control" name="question"></textarea>
                                 </div>
-                                <input type="hidden" id="section_id" name="part_id" value="">
+                                <input type="hidden" id="test_part_id" name="part_id" value="">
                                 <input type="hidden" name="type" value="quiz">
 {{--                                <div class="mb-3">--}}
 {{--                                    <label class="form-label">Rasm </label>--}}
@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Ball <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="score" id="summa">
+                                    <input type="number" class="form-control" name="score" id="summa" value="1">
                                 </div>
 
                                 <div class=" text-end">
@@ -265,10 +265,10 @@
 {{--                                        <input type="hidden" name="section_id" value="{{ $section->id }}">--}}
 {{--                                        <button type="submit" class="btn btn-danger">Bo'limni o'chirish</button>--}}
 {{--                                    </form>--}}
-                                    <button class="btn btn-info add" id="{{ $section->id }}">+ Test</button>
+                                    <button class="btn btn-info add" id="{{ $part->id }}">+ Test</button>
 {{--                                    <button class="btn btn-info add-mos" id="{{ $section->id }}">+ Moslashtirish</button>--}}
-                                    <button class="btn btn-info add-writing" id="{{ $section->id }}">+ Yozma</button>
-                                    <button class="btn btn-info add-speaking" id="{{ $section->id }}">+ Speaking</button>
+                                    <button class="btn btn-info add-writing" id="{{ $part->id }}">+ Yozma</button>
+                                    <button class="btn btn-info add-speaking" id="{{ $part->id }}">+ Speaking</button>
                                 </div>
                             </div>
                         </div>
@@ -408,7 +408,7 @@
 
         $(".add").on("click", function () {
             let sectionID = $(this).attr('id');
-            $('#section_id').val(sectionID);
+            $('#test_part_id').val(sectionID);
             $('.forma').show();
             $('.quizzes').hide();
         });

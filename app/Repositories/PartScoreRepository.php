@@ -17,6 +17,24 @@ class PartScoreRepository
         return $partScore;
     }
 
+    public function getSolvedPartsIds($section_score_id)
+    {
+        return PartScore::where('section_score_id', $section_score_id)
+            ->pluck('part_id')
+            ->toArray();
+    }
+
+    public function getBySectionScoreId($section_score_id)
+    {
+        return PartScore::where('section_score_id', $section_score_id)
+            ->get();
+    }
+
+    public function getById($id)
+    {
+        return PartScore::find($id);
+    }
+
     public function delete($partScore)
     {
         $partScore->delete();
