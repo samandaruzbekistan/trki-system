@@ -36,7 +36,9 @@
                                                     </div>
                                                 </div>
                                                 <h1 class="mt-1 mb-3">{{ $part->name }}</h1>
-                                                <span class="text-danger">завершен</span>
+                                                @if(in_array($part['id'], $solved_parts_ids))
+                                                    <span class="text-danger">завершен</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </a>

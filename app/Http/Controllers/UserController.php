@@ -9,6 +9,7 @@ use App\Repositories\PartRepository;
 use App\Repositories\PartScoreRepository;
 use App\Repositories\SectionRepository;
 use App\Repositories\SectionScoreRepository;
+use App\Repositories\UserAnswerRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,8 @@ class UserController extends Controller
         protected SectionRepository $sectionRepository,
         protected PartScoreRepository $partScoreRepository,
         protected PartRepository $partRepository,
-        protected SectionScoreRepository $sectionScoreRepository
+        protected SectionScoreRepository $sectionScoreRepository,
+        protected UserAnswerRepository $userAnswerRepository
     )
     {
     }
@@ -69,9 +71,8 @@ class UserController extends Controller
         $exam_result = $this->examResultRepository->getById(session('exam_result_id'));
         $section = $this->sectionRepository->getById($section_id);
         $section_score = $this->sectionScoreRepository->getSectionScore($section_id, session('exam_result_id'));
-        $solved_parts_ids = $this->partScoreRepository->getSolvedPartsIds($section_id);
         if(!$section_score){
-            $this->sectionScoreRepository->create([
+            $section_score = $this->sectionScoreRepository->create([
                 'section_id' => $section_id,
                 'exam_result_id' => session('exam_result_id'),
                 'score' => 0,
@@ -79,6 +80,7 @@ class UserController extends Controller
                 'percent' => 0,
             ]);
         }
+        $solved_parts_ids = $this->partScoreRepository->getSolvedPartsIds($section_score->id);
         return view('user.home', ['exam_result' => $exam_result, 'section' => $section, 'solved_parts_ids' => $solved_parts_ids]);
     }
 
@@ -97,6 +99,9 @@ class UserController extends Controller
         }
         elseif($part->type == 'writing'){
             return view('user.parts.writing', ['part' => $part]);
+        }
+        elseif($part->type == 'speaking'){
+            return view('user.parts.speaking', ['part' => $part]);
         }
     }
 
@@ -137,7 +142,80 @@ class UserController extends Controller
         return redirect()->route('user.section.show', ['id' => $request->input('section_id')]);
     }
 
-    public function check_writing(){
+    public function check_writing(Request $request){
+        $request->validate([
+            'answer' => 'required|string',
+            'part_id' => 'required|integer',
+            'exam_result_id' => 'required|integer',
+            'question_id' => 'required|integer',
+            'section_id' => 'required|integer',
+        ]);
 
+        $partScore = $this->partScoreRepository->getById($request->input('part_id'));
+        if($partScore){
+            return redirect()->route('user.section.show', ['id' => $request->input('section_id')])->with('unsuccessfully', 'Siz bu bo\'limni avval o\'tkazgansiz');
+        }
+        $section_score = $this->sectionScoreRepository->getSectionScore($request->input('section_id'), $request->input('exam_result_id'));
+
+        $partScore = $this->partScoreRepository->create([
+            'part_id' => $request->input('part_id'),
+            'exam_result_id' => $request->input('exam_result_id'),
+            'score' => 0,
+            'percent' => 0,
+            'status' => 'pending', // 'pending', 'checked', 'unchecked
+            'section_score_id' => $section_score->id,
+        ]);
+
+        $this->userAnswerRepository->create([
+            'part_score_id' => $partScore->id,
+            'question_id' => $request->input('question_id'),
+            'answer' => $request->input('answer'),
+            'score' => 0,
+            'status' => 'pending',
+        ]);
+        return redirect()->route('user.section.show', ['id' => $request->input('section_id')]);
     }
+
+    public function check_speaking(Request $request)
+    {
+        $request->validate([
+            'part_id' => 'required|integer',
+            'exam_result_id' => 'required|integer',
+            'section_id' => 'required|integer',
+            'question_id' => 'required|array',
+            'question_id.*' => 'required|integer',
+        ]);
+
+        $section_score = $this->sectionScoreRepository->getSectionScore($request->input('section_id'), $request->input('exam_result_id'));
+        $partScore = $this->partScoreRepository->create([
+            'part_id' => $request->input('part_id'),
+            'exam_result_id' => $request->input('exam_result_id'),
+            'score' => 0,
+            'percent' => 0,
+            'status' => 'pending', // 'pending', 'checked', 'unchecked
+            'section_score_id' => $section_score->id,
+        ]);
+
+        foreach ($request->question_id as $questionId) {
+            if ($request->has("audio_{$questionId}")) {
+                $audioData = $request->input("audio_{$questionId}");
+                $audioFileName = "answer_{$questionId}_" . time() . ".wav";
+                $audioPath = public_path("records/{$audioFileName}");
+
+                file_put_contents($audioPath, base64_decode(explode(",", $audioData)[1]));
+
+                $this->userAnswerRepository->create([
+                    'question_id' => $questionId,
+                    'audio' => "$audioPath",
+                    'score' => 0,
+                    'status' => 'pending',
+                    'part_score_id' => $partScore->id,
+                    'answer' => $request->input('answer'),
+                ]);
+            }
+        }
+
+        return redirect()->route('user.section.show', ['id' => $request->input('section_id')]);
+    }
+
 }

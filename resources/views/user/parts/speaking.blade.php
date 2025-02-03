@@ -56,10 +56,7 @@
     <div class="container ps-5 pt-5 mt-5 pe-5">
         <h2>{{ $part->name }}</h2>
         <h3>{!! $part->description !!}</h3>
-        @if($part->type == 'listening_video')
-            {!! $part->video_frame !!}
-        @endif
-        <form action="{{ route('user.writing.check') }}" method="post" id="submit-form">
+        <form action="{{ route('user.speaking.check') }}" method="post" id="submit-form">
             @csrf
             <input type="hidden" name="quiz_count" value="{{ count($part->questions) }}">
             <input type="hidden" name="part_id" value="{{ $part->id }}">
@@ -70,10 +67,12 @@
                     <div class="card-header">
                         <h5 class="card-title mb-0">{{ $quiz->question }}</h5>
                     </div>
-                    <input type="hidden" name="question_id" value="{{ $quiz->id }}">
-                    <div class="card-body h-100">
-                        <textarea name="answer" class="form-control mb-5 pb-5" cols="30" rows="10"></textarea>
-                    </div>
+                    <input type="hidden" name="question_id[]" value="{{ $quiz->id }}">
+                    <button type="button" class="btn btn-primary record-btn" data-id="{{ $quiz->id }}">
+                        🎙 Ovoz yozish
+                    </button>
+                    <audio class="audio-preview d-none" controls></audio>
+                    <input type="hidden" name="audio_{{ $quiz->id }}" class="audio-input">
                 </div>
             @endforeach
             <br><br>
@@ -104,6 +103,52 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    let mediaRecorder;
+    let audioChunks = {};
+
+    document.querySelectorAll(".record-btn").forEach(button => {
+        button.addEventListener("click", async function () {
+            let questionId = this.getAttribute("data-id");
+            let audioPreview = this.nextElementSibling;
+            let audioInput = this.nextElementSibling.nextElementSibling;
+
+            if (!mediaRecorder || mediaRecorder.state === "inactive") {
+                // Ovoz yozishni boshlash
+                let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks[questionId] = [];
+
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks[questionId].push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    let audioBlob = new Blob(audioChunks[questionId], { type: "audio/wav" });
+                    let audioUrl = URL.createObjectURL(audioBlob);
+                    audioPreview.src = audioUrl;
+                    audioPreview.classList.remove("d-none");
+
+                    // Audio faylni bazaga jo'natish uchun `base64` yoki blob
+                    let reader = new FileReader();
+                    reader.readAsDataURL(audioBlob);
+                    reader.onloadend = function () {
+                        audioInput.value = reader.result;
+                    };
+                };
+
+                mediaRecorder.start();
+                this.textContent = "🛑 Yozishni to'xtatish";
+            } else {
+                // Ovoz yozishni to'xtatish
+                mediaRecorder.stop();
+                this.textContent = "🎙 Ovoz yozish";
+            }
+        });
+    });
+</script>
+
 
 <script>
     function formatTime(seconds) {

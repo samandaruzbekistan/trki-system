@@ -32,6 +32,7 @@ Route::prefix('user')->group(function () {
 
         Route::post('check-quiz', [UserController::class, 'check_quiz'])->name('user.quiz.check');
         Route::post('check-writing', [UserController::class, 'check_writing'])->name('user.writing.check');
+        Route::post('check-speaking', [UserController::class, 'check_speaking'])->name('user.speaking.check');
 
     });
 });
