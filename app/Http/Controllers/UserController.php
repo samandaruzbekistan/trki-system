@@ -82,15 +82,22 @@ class UserController extends Controller
         return view('user.home', ['exam_result' => $exam_result, 'section' => $section, 'solved_parts_ids' => $solved_parts_ids]);
     }
 
+    public function show_section_by_type($exam_id, $type){
+        $section = $this->sectionRepository->getByType($exam_id, $type);
+        return redirect()->route('user.section.show', ['id' => $section->id]);
+    }
+
     public function play_part($id){
         $part = $this->partRepository->getById($id);
-        return view('user.parts.quiz', ['part' => $part]);
-//        if($part->type == 'quiz'){
-//            return view('user.parts.quiz', ['part' => $part]);
-//        }
-//        else{
-//            return view('user.playvideo', ['part' => $part]);
-//        }
+        if($part->type == 'quiz'){
+            return view('user.parts.quiz', ['part' => $part]);
+        }
+        elseif($part->type == 'listening_audio'){
+            return view('user.parts.audio', ['part' => $part]);
+        }
+        elseif($part->type == 'writing'){
+            return view('user.parts.writing', ['part' => $part]);
+        }
     }
 
     public function check_quiz(Request $request){
@@ -128,5 +135,9 @@ class UserController extends Controller
         $section_score->percent = $new_section_score_percent;
         $section_score->save();
         return redirect()->route('user.section.show', ['id' => $request->input('section_id')]);
+    }
+
+    public function check_writing(){
+
     }
 }

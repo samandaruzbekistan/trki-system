@@ -27,9 +27,11 @@ Route::prefix('user')->group(function () {
     Route::middleware(['user_auth'])->group(function () {
         Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
         Route::get('show-section/{id}', [UserController::class, 'show_section'])->name('user.section.show');
+        Route::get('show-section-by-type/{exam_id}/{type}', [UserController::class, 'show_section_by_type'])->name('user.section.show.type');
         Route::get('play-part/{id}', [UserController::class, 'play_part'])->name('user.part.play');
 
         Route::post('check-quiz', [UserController::class, 'check_quiz'])->name('user.quiz.check');
+        Route::post('check-writing', [UserController::class, 'check_writing'])->name('user.writing.check');
 
     });
 });

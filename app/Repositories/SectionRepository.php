@@ -28,4 +28,11 @@ class SectionRepository
         $section = Section::find($id);
         $section->delete();
     }
+
+    public function getByType($exam_id, $type)
+    {
+        return Section::where('exam_id', $exam_id)
+            ->where('type', $type)
+            ->first();
+    }
 }

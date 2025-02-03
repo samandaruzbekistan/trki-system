@@ -29,36 +29,36 @@
             <ul class="sidebar-nav">
 
 
-                <li class="sidebar-item @yield('home')">
-                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                <li class="sidebar-item @yield('quiz')">
+                    <a class="sidebar-link" href="{{ route('user.section.show.type', ['exam_id' => session('exam_id'), 'type' => 'quiz']) }}">
                         <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">Лексика. Грамматика</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item @yield('reading')">
-                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                    <a class="sidebar-link" href="{{ route('user.section.show.type', ['exam_id' => session('exam_id'), 'type' => 'reading']) }}">
                         <i class="align-middle" data-feather="book-open"></i>
                         <span class="align-middle">Чтение</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item @yield('reading')">
-                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                <li class="sidebar-item @yield('listening')">
+                    <a class="sidebar-link" href="{{ route('user.section.show.type', ['exam_id' => session('exam_id'), 'type' => 'listening']) }}">
                         <i class="align-middle" data-feather="music"></i>
                         <span class="align-middle">Аудирование</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item @yield('reading')">
-                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                <li class="sidebar-item @yield('writing')">
+                    <a class="sidebar-link" href="{{ route('user.section.show.type', ['exam_id' => session('exam_id'), 'type' => 'writing']) }}">
                         <i class="align-middle" data-feather="feather"></i>
                         <span class="align-middle">Письмо</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item @yield('reading')">
-                    <a class="sidebar-link" href="{{ route('admin.home') }}">
+                <li class="sidebar-item @yield('speaking')">
+                    <a class="sidebar-link" href="{{ route('user.section.show.type', ['exam_id' => session('exam_id'), 'type' => 'speaking']) }}">
                         <i class="align-middle" data-feather="mic"></i>
                         <span class="align-middle">Говорение</span>
                     </a>

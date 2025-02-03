@@ -1,6 +1,6 @@
 @extends('user.header')
 
-@section('home')
+@section($section->type)
     active
 @endsection
 @section('section')
