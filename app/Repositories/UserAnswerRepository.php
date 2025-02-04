@@ -13,6 +13,11 @@ class UserAnswerRepository
             ->first();
     }
 
+    public function get($id)
+    {
+        return UserAnswer::find($id);
+    }
+
     public function create($data)
     {
         return UserAnswer::create($data);
@@ -29,5 +34,10 @@ class UserAnswerRepository
     {
         $user_answer = UserAnswer::find($id);
         $user_answer->delete();
+    }
+
+    public function getByPartScore($part_id)
+    {
+        return UserAnswer::where('part_score_id', $part_id)->get();
     }
 }

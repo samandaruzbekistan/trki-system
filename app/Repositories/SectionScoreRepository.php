@@ -18,6 +18,11 @@ class SectionScoreRepository
         return SectionScore::create($data);
     }
 
+    public function getById($id)
+    {
+        return SectionScore::find($id);
+    }
+
     public function getCheckedSection($exam_result_id)
     {
         return SectionScore::with('partScores')->where('exam_result_id', $exam_result_id)

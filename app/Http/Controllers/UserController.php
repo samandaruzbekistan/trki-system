@@ -207,7 +207,7 @@ class UserController extends Controller
 
                 $this->userAnswerRepository->create([
                     'question_id' => $questionId,
-                    'audio' => "$audioPath",
+                    'audio' => "records/{$audioFileName}",
                     'score' => 0,
                     'status' => 'pending',
                     'part_score_id' => $partScore->id,

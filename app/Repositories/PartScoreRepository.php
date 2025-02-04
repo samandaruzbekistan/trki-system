@@ -24,6 +24,13 @@ class PartScoreRepository
             ->toArray();
     }
 
+    public function getUncheckedParts($section_score_id)
+    {
+        return PartScore::where('section_score_id', $section_score_id)
+            ->where('status', 'pending')
+            ->get();
+    }
+
     public function getBySectionScoreId($section_score_id)
     {
         return PartScore::where('section_score_id', $section_score_id)

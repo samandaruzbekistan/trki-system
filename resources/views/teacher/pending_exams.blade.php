@@ -1,4 +1,4 @@
-@extends('admin.header')
+@extends('teacher.header')
 
 @push('css')
     <style>

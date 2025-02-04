@@ -28,7 +28,8 @@ Route::prefix('teacher')->group(function () {
         Route::get('home', [TeacherController::class, 'teacher_home'])->name('teacher.results');
         Route::get('pending-exams', [TeacherController::class, 'pending_exams'])->name('teacher.exams.pending');
         Route::get('show-exam/{result_id}', [TeacherController::class, 'show_result'])->name('teacher.exams.show');
-        Route::get('check-part/{id}', [TeacherController::class, 'check_part'])->name('teacher.exams.check.part');
+        Route::get('check-part/{id}', [TeacherController::class, 'show_unchecked_part'])->name('teacher.exams.check.part');
+        Route::post('check-scores', [TeacherController::class, 'check_part'])->name('teacher.check.part');
     });
 });
 
