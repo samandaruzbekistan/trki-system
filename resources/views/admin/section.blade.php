@@ -311,7 +311,7 @@
                                     @endif
                                     <td>{{ $quiz->score }}</td>
                                     <td>
-                                        <a href="">Delete</a>
+                                        <a href="{{ route('admin.question.delete', ['id' => $quiz->id]) }}">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

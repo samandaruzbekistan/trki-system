@@ -62,6 +62,7 @@ Route::prefix('admin')->group(function () {
 //        Questions control
         Route::get('question/{id}',[QuestionController::class,'index'])->name('admin.question');
         Route::post('question',[QuestionController::class,'create'])->name('admin.question.create');
+        Route::get('delete-question/{id}',[QuestionController::class,'destroy'])->name('admin.question.delete');
 
 //        Users control
         Route::get('users',[AdminController::class,'users'])->name('admin.users');

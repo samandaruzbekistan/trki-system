@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Answer;
 use App\Models\Question;
 
 class QuestionRepository
@@ -25,6 +26,7 @@ class QuestionRepository
 
     public function delete($id)
     {
+        Answer::where('question_id', $id)->delete();
         $question = Question::find($id);
         $question->delete();
     }
