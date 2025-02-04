@@ -6,6 +6,7 @@ use App\Http\Controllers\PartController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/admin', 'admin.login')->name('admin.login');
-Route::view('/login', 'user.login')->name('user.login');
+Route::prefix('teacher')->group(function () {
+    Route::view('/', 'teacher.login')->name('teacher.login');
+    Route::post('auth', [TeacherController::class, 'auth'])->name('teacher.auth');
+    Route::middleware(['user_auth'])->group(function () {
+        Route::get('logout', [TeacherController::class, 'logout'])->name('teacher.logout');
 
+    });
+});
+
+Route::view('/login', 'user.login')->name('user.login');
 Route::prefix('user')->group(function () {
     Route::post('auth', [UserController::class, 'auth'])->name('user.auth');
     Route::middleware(['user_auth'])->group(function () {
@@ -38,6 +46,7 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('admin')->group(function () {
+    Route::view('/', 'admin.login')->name('admin.login');
     Route::post('/auth', [AdminController::class, 'auth'])->name('admin.auth');
     Route::middleware(['admin_auth'])->group(function () {
         Route::get('home', [AdminController::class, 'home'])->name('admin.home');
