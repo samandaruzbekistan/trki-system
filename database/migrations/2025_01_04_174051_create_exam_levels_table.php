@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -11,14 +12,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('exam_levels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('level_id');
-            $table->date('date');
-            $table->string('status')->default('closed');
-            $table->timestamps();
         });
+
+        DB::table('exam_levels')->insert([
+            ['name' => 'A1'],
+            ['name' => 'A2'],
+            ['name' => 'B1'],
+            ['name' => 'B2'],
+            ['name' => 'C1'],
+            ['name' => 'C2'],
+        ]);
     }
 
     /**
@@ -26,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('exam_levels');
     }
 };

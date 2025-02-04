@@ -23,9 +23,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('teacher')->group(function () {
     Route::view('/', 'teacher.login')->name('teacher.login');
     Route::post('auth', [TeacherController::class, 'auth'])->name('teacher.auth');
-    Route::middleware(['user_auth'])->group(function () {
+    Route::middleware(['teacher_auth'])->group(function () {
         Route::get('logout', [TeacherController::class, 'logout'])->name('teacher.logout');
-
+        Route::get('home', [TeacherController::class, 'teacher_home'])->name('teacher.results');
+        Route::get('pending-exams', [TeacherController::class, 'pending_exams'])->name('teacher.exams.pending');
+        Route::get('show-exam/{result_id}', [TeacherController::class, 'show_result'])->name('teacher.exams.show');
+        Route::get('check-part/{id}', [TeacherController::class, 'check_part'])->name('teacher.exams.check.part');
     });
 });
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('percent')->nullable();
             $table->integer('section_id');
+            $table->string('status')->default('pending'); // 'pending', 'checked', 'unchecked
             $table->timestamps();
         });
     }

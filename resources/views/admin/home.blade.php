@@ -21,8 +21,13 @@
                                     <input name="name" required type="text" class="form-control" placeholder="">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Malumot (B1, B2, C1) <span class="text-danger">*</span></label>
-                                    <input name="description" required type="text" class="form-control" placeholder="">
+                                    <label for="levels" class="form-label">Daraja</label> <sup class="text-danger">*</sup>
+                                    <select  name="level_id" required class="form-select" id="levels">
+                                        <option disabled="" selected="" hidden>Tanlang</option>
+                                        @foreach($levels as $level)
+                                            <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Sana <span class="text-danger">*</span></label>
@@ -58,7 +63,7 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col mt-0">
-                                                        <h5 class="card-title">{{ $exam->description }}</h5>
+                                                        <h5 class="card-title">{{ $exam->level->name }}</h5>
                                                     </div>
 
                                                     <div class="col-auto">

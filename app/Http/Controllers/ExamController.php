@@ -16,7 +16,7 @@ class ExamController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'description' => 'required|string',
+            'level_id' => 'required|numeric|exists:exam_levels,id',
             'date' => 'required|date',
         ]);
         $exam = $this->examRepository->create($request->all());

@@ -14,6 +14,7 @@ class SectionScore extends Model
         'score',
         'percent',
         'section_id',
+        'status',
         'type'
     ];
 
@@ -25,5 +26,10 @@ class SectionScore extends Model
     public function examResult()
     {
         return $this->belongsTo(ExamResult::class);
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
     }
 }

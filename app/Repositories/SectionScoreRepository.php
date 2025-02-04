@@ -18,6 +18,20 @@ class SectionScoreRepository
         return SectionScore::create($data);
     }
 
+    public function getCheckedSection($exam_result_id)
+    {
+        return SectionScore::with('partScores')->where('exam_result_id', $exam_result_id)
+            ->where('status', "checked")
+            ->get();
+    }
+
+    public function getUnCheckedSection($exam_result_id)
+    {
+        return SectionScore::with('partScores')->where('exam_result_id', $exam_result_id)
+            ->where('status', "pending")
+            ->get();
+    }
+
     public function update($id, $data)
     {
         $section_score = SectionScore::find($id);

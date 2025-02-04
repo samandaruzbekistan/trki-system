@@ -38,4 +38,14 @@ class ExamResultRepository
         $examResult = ExamResult::find($id);
         $examResult->delete();
     }
+
+    public function getUncheckedExams()
+    {
+        return ExamResult::where('status', 'pending')->get();
+    }
+
+    public function completedExams()
+    {
+        return ExamResult::where('status', 'completed')->paginate(100);
+    }
 }

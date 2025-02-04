@@ -11,11 +11,15 @@ class Exam extends Model
 
     protected $fillable = [
         'name',
-        'description',
         'date',
+        'level_id',
     ];
 
     public function sections(){
         return $this->hasMany(Section::class);
+    }
+
+    public function level(){
+        return $this->belongsTo(ExamLevel::class, 'level_id', 'id');
     }
 }

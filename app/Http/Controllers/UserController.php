@@ -137,6 +137,7 @@ class UserController extends Controller
         }
         $new_section_score_percent = $all_percent_sum / count($part_scores);
         $section_score->score += $score;
+        $section_score->status = "checked";
         $section_score->percent = $new_section_score_percent;
         $section_score->save();
         return redirect()->route('user.section.show', ['id' => $request->input('section_id')]);

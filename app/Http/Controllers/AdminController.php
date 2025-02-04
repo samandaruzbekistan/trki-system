@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Repositories\AdminRepository;
+use App\Repositories\ExamLevelRepository;
 use App\Repositories\ExamRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class AdminController extends Controller
     public function __construct(
         protected AdminRepository $adminRepository,
         protected ExamRepository $examRepository,
-        protected UserRepository $userRepository
+        protected UserRepository $userRepository,
+        protected ExamLevelRepository $examLevelRepository
     )
     {
     }
@@ -59,7 +61,8 @@ class AdminController extends Controller
 
     public function home(){
         $exams = $this->examRepository->getExams();
-        return view('admin.home', ['exams' => $exams]);
+        $levels = $this->examLevelRepository->getLevels();
+        return view('admin.home', ['exams' => $exams, 'levels' => $levels]);
     }
 
     public function users(){

@@ -21,7 +21,7 @@ return new class extends Migration
 
         $hash_password = \Illuminate\Support\Facades\Hash::make('915030089');
 
-        \Illuminate\Support\Facades\DB::table('admins')->insert([
+        \Illuminate\Support\Facades\DB::table('teachers')->insert([
             'name' => 'Шарипова Анжелика',
             'username' => 'anjelika',
             'password' => $hash_password,
